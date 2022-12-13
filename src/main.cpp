@@ -2,6 +2,7 @@
 #include "ofApp.h"
 #include "contoursApp.hpp"
 #include "eyeFinder.hpp"
+#include "boxCV.hpp"
 
 //========================================================================
 int main( ){
@@ -16,6 +17,11 @@ int main( ){
     // ofRunApp(new contoursApp());
     
     // Run Feature (eyes) Detection App
-    ofRunApp(new eyeFinder());
+    // ofRunApp(new eyeFinder());
+    
+    // Run Feature (eyes) Detection App
+    // ofRunApp(new eyeFinder());
 
+    // Run Blob Tracking with Physics
+    ofRunApp(new boxCV());
 }
