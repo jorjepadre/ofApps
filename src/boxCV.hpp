@@ -25,6 +25,8 @@ public:
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     
+    void checkBlobs();
+    
     ofVideoGrabber vidGrabber;
     ofxCvColorImage colorImg;
     ofxCvGrayscaleImage grayImage;
@@ -44,8 +46,6 @@ public:
     
     int threshold;
     float amount;
-    
-    void checkBlobs();
     
     int xVal = 640, yVal = 480;
     

@@ -95,13 +95,81 @@ void boxCV::draw() {
         
         ofSetColor(0, 0, 255);
         ofFill();
-        vector<ofPoint>::iterator pit = bodyShape->getVertices().begin();
+//        vector<ofPoint>::iterator pit = bodyShape->getVertices().begin();
+        auto pit = bodyShape->getVertices().begin();
         while (pit != bodyShape->getVertices().end()) {
             ofDrawCircle(pit->x, pit->y, 5);
             ++pit;
         }
     }
 }
+
+void boxCV::mouseDragged(int x, int y, int button) {
+//    if (debugging) {
+//        if (bodyShape) {
+//            bodyShape->destroy();
+//            delete bodyShape;
+//        }
+//        bodyShape = new ofxBox2dPolygon();
+//        glm::vec2 ul = glm::vec2();
+//        ul.x = x - 50.f;
+//        ul.y = y - 50.f;
+//        glm::vec2 ur = glm::vec2(x + 50.f, y - 50.f);
+//        glm::vec2 lr = glm::vec2(x + 50.f, y + 50.f);
+//        glm::vec2 ll = glm::vec2(x - 50.f, y + 50.f);
+//
+//        bodyShape->addVertex(ul);
+//        bodyShape->addVertex(ur);
+//        bodyShape->addVertex(lr);
+//        bodyShape->addVertex(ll);
+//
+//        bodyShape->create(box2d.getWorld());
+//    }
+}
+
+void boxCV::mousePressed(int x, int y, int button) {
+//    if (debugging) {
+//        if (bodyShape) {
+//            bodyShape->destroy();
+//            delete bodyShape;
+//        }
+//        bodyShape = new ofxBox2dPolygon();
+//        ofVec2f ul(x - 50.f, y - 50.f);
+//        ofVec2f ur(x + 50.f, y - 50.f);
+//        ofVec2f lr(x + 50.f, y + 50.f);
+//        ofVec2f ll(x - 50.f, y + 50.f);
+//
+//        bodyShape->addVertex(ul);
+//        bodyShape->addVertex(ur);
+//        bodyShape->addVertex(lr);
+//        bodyShape->addVertex(ll);
+//
+//        bodyShape->create(box2d.getWorld());
+//    }
+}
+
+void boxCV::keyPressed(int key) {
+    switch (key) {
+        case ' ':
+            bLearningBackground = true;
+            break;
+        case '+':
+            threshold++;
+            if (threshold > 255) threshold = 255;
+            break;
+        case '-':
+            threshold--;
+            if (threshold < 0) threshold = 0;
+            break;
+//        case 'd':
+//            debugging = !debugging;
+//            break;
+        case 'c':
+            contours = !contours;
+            break;
+    }
+}
+
 
 void boxCV::checkBlobs() {
     contourFinder.findContours(grayDiff, 120, (grayDiff.getWidth() * grayDiff.getHeight()) / 2, 5, false);
@@ -122,9 +190,10 @@ void boxCV::checkBlobs() {
         }
         
         bodyShape = new ofxBox2dPolygon();
-        ofVec2f scaleUp(ofGetWidth()/xVal, ofGetHeight()/yVal);
+        glm::vec2 scaleUp(ofGetWidth()/xVal, ofGetHeight()/yVal);
         
-        vector<ofPoint>::iterator pit = largest.pts.begin();
+//        vector<ofPoint>::iterator pit = largest.pts.begin();
+        auto pit = largest.pts.begin();
         while (pit != largest.pts.end()) {
             bodyShape->addVertex(*pit * scaleUp);
             ++pit;
@@ -132,69 +201,5 @@ void boxCV::checkBlobs() {
         
         bodyShape->simplify(20);
         bodyShape->create(box2d.getWorld());
-    }
-}
-
-void boxCV::mouseDragged(int x, int y, int button) {
-    if (debugging) {
-        if (bodyShape) {
-            bodyShape->destroy();
-            delete bodyShape;
-        }
-        bodyShape = new ofxBox2dPolygon();
-        ofVec2f ul(x - 50.f, y - 50.f);
-        ofVec2f ur(x + 50.f, y - 50.f);
-        ofVec2f lr(x + 50.f, y + 50.f);
-        ofVec2f ll(x - 50.f, y + 50.f);
-        
-        bodyShape->addVertex(ul);
-        bodyShape->addVertex(ur);
-        bodyShape->addVertex(lr);
-        bodyShape->addVertex(ll);
-        
-        bodyShape->create(box2d.getWorld());
-    }
-}
-
-void boxCV::mousePressed(int x, int y, int button) {
-    if (debugging) {
-        if (bodyShape) {
-            bodyShape->destroy();
-            delete bodyShape;
-        }
-        bodyShape = new ofxBox2dPolygon();
-        ofVec2f ul(x - 50.f, y - 50.f);
-        ofVec2f ur(x + 50.f, y - 50.f);
-        ofVec2f lr(x + 50.f, y + 50.f);
-        ofVec2f ll(x - 50.f, y + 50.f);
-        
-        bodyShape->addVertex(ul);
-        bodyShape->addVertex(ur);
-        bodyShape->addVertex(lr);
-        bodyShape->addVertex(ll);
-        
-        bodyShape->create(box2d.getWorld());
-    }
-}
-
-void boxCV::keyPressed(int key) {
-    switch (key) {
-        case ' ':
-            bLearningBackground = true;
-            break;
-        case '+':
-            threshold++;
-            if (threshold > 255) threshold = 255;
-            break;
-        case '-':
-            threshold--;
-            if (threshold < 0) threshold = 0;
-            break;
-        case 'd':
-            debugging = !debugging;
-            break;
-        case 'c':
-            contours = !contours;
-            break;
     }
 }
