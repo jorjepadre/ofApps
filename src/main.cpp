@@ -1,6 +1,7 @@
 #include "ofMain.h"
 #include "ofApp.h"
 #include "contoursApp.hpp"
+#include "eyeFinder.hpp"
 
 //========================================================================
 int main( ){
@@ -12,6 +13,9 @@ int main( ){
 	// ofRunApp(new ofApp());
     
     // Run Object Detection App
-    ofRunApp(new contoursApp());
+    // ofRunApp(new contoursApp());
+    
+    // Run Feature (eyes) Detection App
+    ofRunApp(new eyeFinder());
 
 }
