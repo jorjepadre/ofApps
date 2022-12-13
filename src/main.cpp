@@ -2,6 +2,7 @@
 #include "ofApp.h"
 #include "contoursApp.hpp"
 #include "eyeFinder.hpp"
+#include "gestureRec.hpp"
 
 //========================================================================
 int main( ){
@@ -16,6 +17,9 @@ int main( ){
     // ofRunApp(new contoursApp());
     
     // Run Feature (eyes) Detection App
-    ofRunApp(new eyeFinder());
+    // ofRunApp(new eyeFinder());
+    
+    // Run Gesture Detection App
+    ofRunApp(new gestureRec());
 
 }
